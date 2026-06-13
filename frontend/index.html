@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>GloboTicket</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main>
+      <h1>GloboTicket</h1>
+      <div class="search">
+        <input id="cityInput" placeholder="Enter city (e.g., Seattle)" />
+        <button id="searchBtn">Search</button>
+      </div>
+      <div id="status" class="status"></div>
+      <div id="results" class="results"></div>
+    </main>
+
+    <script>
+      // If frontend is served from a development static server (e.g. port 8000),
+      // point requests to the backend at port 5000. Override by setting
+      // `window.BACKEND_BASE` before this file if needed.
+      window.BACKEND_BASE = window.BACKEND_BASE || (location.port === '8000' ? 'http://localhost:5000' : '');
+    </script>
+    <script src="script.js"></script>
+  </body>
+</html>
