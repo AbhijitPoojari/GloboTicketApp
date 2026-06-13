@@ -16,16 +16,16 @@
 
 ```mermaid
 flowchart LR
-	A[User Browser] -->|loads| FE[Frontend<br/>index.html + script.js]
-	FE -->|HTTP GET /events?city=...| API[Backend Flask<br/>/events]
-	API -->|requests with API key| TM[Ticketmaster Discovery API]
+	A["User Browser"] -->|loads| FE["Frontend\nindex.html + script.js"]
+	FE -->|HTTP GET /events?city=...| API["Backend Flask\n/events"]
+	API -->|requests with API key| TM["Ticketmaster Discovery API"]
 	API -->|returns simplified JSON| FE
 	FE -->|renders| A
 
 	subgraph Dev
-		API -- reads --> ENV[backend/.env<br/>TICKETMASTER_API_KEY]
-		API -- tests --> TESTS[pytest (backend/tests)]
-		SCRIPTS[scripts/e2e_test.py] -->|calls| API
+		API -- reads --> ENV["backend/.env\nTICKETMASTER_API_KEY"]
+		API -- tests --> TESTS["pytest\n(backend/tests)"]
+		SCRIPTS["scripts/e2e_test.py"] -->|calls| API
 	end
 
 	style ENV fill:#fff3cd,stroke:#ffd54a
