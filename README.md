@@ -12,6 +12,29 @@
 	- Frontend: static HTML/CSS/JS served from `frontend/` (can be served with a static server).
 	- Backend: Flask app in `backend/app.py` that exposes `GET /events?city={city}` and calls Ticketmaster Discovery API.
 
+### Architecture Diagram
+
+```mermaid
+flowchart LR
+	A[User Browser] -->|loads| FE[Frontend<br/>index.html + script.js]
+	FE -->|HTTP GET /events?city=...| API[Backend Flask<br/>/events]
+	API -->|requests with API key| TM[Ticketmaster Discovery API]
+	API -->|returns simplified JSON| FE
+	FE -->|renders| A
+
+	subgraph Dev
+		API -- reads --> ENV[backend/.env<br/>TICKETMASTER_API_KEY]
+		API -- tests --> TESTS[pytest (backend/tests)]
+		SCRIPTS[scripts/e2e_test.py] -->|calls| API
+	end
+
+	style ENV fill:#fff3cd,stroke:#ffd54a
+	style TESTS fill:#e8f5e9,stroke:#66bb6a
+	style SCRIPTS fill:#e3f2fd,stroke:#42a5f5
+```
+
+The diagram shows the primary runtime flow: a user loads the static frontend which calls the backend `GET /events` endpoint. The backend reads the `TICKETMASTER_API_KEY` from environment, queries Ticketmaster, maps the response to a small JSON payload, and returns it for the frontend to render. Development helpers include unit tests and a simple end-to-end script.
+
 ## Technology Stack
 
 - **Frontend:** Plain HTML, CSS, and vanilla JavaScript (no build tool).
